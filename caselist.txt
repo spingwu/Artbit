@@ -1,3 +1,4 @@
-user/testLoginByPhone
+#user/testIndex
+query/testIndex
+#user/testLoginByPhone
 #user/testSendVerrify
-#user/tes
