@@ -6,10 +6,9 @@ import threading
 
 localReadConfig = readConfig.ReadConfig()
 
-
 class Log:
     def __init__(self):
-        global logPath, resultPath, proDir
+        global logPath, resultPath, proDir # 全局变量：日志路径、结果路径、目录路径
         proDir = readConfig.proDir
         resultPath = os.path.join(proDir, "result")
         if not os.path.exists(resultPath):
@@ -18,21 +17,19 @@ class Log:
         if not os.path.exists(logPath):
             os.mkdir(logPath)
         self.logger = logging.getLogger()
-        self.logger.setLevel(logging.INFO)
-
+        self.logger.setLevel(logging.DEBUG)
         # defined handler
-        handler = logging.FileHandler(os.path.join(logPath, "output.log"))
+        file_handler = logging.FileHandler(os.path.join(logPath, "output.log"))
+        file_handler.setLevel(logging.DEBUG)
         # defined handler for terminal
-        sh = logging.StreamHandler()
-        sh.setLevel(logging.DEBUG)
+        shell_handler = logging.StreamHandler()
         # defined formatter
-        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-        handler.setFormatter(formatter)
-        sh.setFormatter(formatter)
-        self.logger.addHandler(handler)
-        self.logger.addHandler(sh)
-        self.logger.debug('Debug')
-        self.logger.info('Info')
+        formatter = logging.Formatter('%(asctime)s %(filename)s[line:%(lineno)d]-%(levelname)s-%(message)s')
+        file_handler.setFormatter(formatter)
+        shell_handler.setFormatter(formatter)
+        # add Handler
+        self.logger.addHandler(file_handler)
+        self.logger.addHandler(shell_handler)
 
     def get_logger(self):
         """
@@ -103,7 +100,6 @@ class MyLog:
 
     @staticmethod
     def get_log():
-
         if MyLog.log is None:
             MyLog.mutex.acquire()
             MyLog.log = Log()
@@ -111,9 +107,9 @@ class MyLog:
 
         return MyLog.log
 
+
 if __name__ == "__main__":
     log = MyLog.get_log()
     logger = log.get_logger()
     logger.debug("test debug")
     logger.info("test info")
-

@@ -82,6 +82,21 @@ class ConfigHttp:
             self.logger.error("Time out!")
             return None
 
+        # defined http get method without headers
+    # defined http get method
+    def getwithheaders(self):
+        """
+        defined get method
+        :return:
+        """
+        try:
+            response = requests.get(self.url, params=self.params, timeout=float(timeout))
+            # response.raise_for_status()
+            return response
+        except TimeoutError:
+            self.logger.error("Time out!")
+            return None
+
     # defined http post method
     # include get params and post data
     # uninclude upload file

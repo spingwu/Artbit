@@ -5,7 +5,7 @@ import readConfig as readConfig
 from common import HTMLTestReportCN
 from common import HTMLTestRunner
 from common.configEmail import MyEmail
-case_path = os.path.join(os.getcwd(),"testCase","user")
+case_path = os.path.join(os.getcwd(),"testCase","query")
 resultPath = os.path.join(os.getcwd(),"result","report.html")
 
 localReadConfig = readConfig.ReadConfig()

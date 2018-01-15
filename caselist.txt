@@ -1,4 +1,5 @@
 #user/testIndex
 query/testIndex
+query/testSpecialdataSearch
 #user/testLoginByPhone
 #user/testSendVerrify

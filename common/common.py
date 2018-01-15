@@ -16,6 +16,16 @@ log = Log.get_log()
 logger =log.get_logger()
 caseNo = 0
 
+def get_reqToken():
+    url = 'http://139.196.15.68:8080/api/v1/loginByPhone'
+    d = {'phone': '15221605356', 'password': '96e79218965eb72c92a549dd5a330112', 'countryCode': '86'}
+    response= requests.post(url=url,data=d)
+    info=response.json()
+    data=info['data']
+    reqToken=data['reqToken']
+    return reqToken
+
+
 def get_visitor_token():
     host = localReadConfig.get_http("BASEURL")
     response = requests.get(host+"/activity/274")
@@ -150,5 +160,6 @@ def get_url_from_xml(name):
     return url
 
 if __name__ == "__main__":
-    print(get_xls_bypandas("lottry","query"))
+    pass
+
     #set_visitor_token_to_config()
